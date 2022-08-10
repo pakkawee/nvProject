@@ -1,12 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button,TextInput} from 'react-native';
+import { Text, View, Button,TextInput} from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import react from 'react';
-import { TextInput } from 'react-native-web';
 
-function HomeScreen (navigation,route){
+function HomeScreen ({navigation,route}){
   react.useEffect(()=>{
     if(route.params?.post){
       //Post updated, do something with 'route.parms.post'
