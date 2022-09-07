@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, Button, LogBox } from "react-native";
 import React from "react";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -11,6 +11,7 @@ import {
 
 
 import HomeScreen from "./screens/HomeScreen";
+import { SafeAreaView } from "react-native-web";
 
 const MyTheme = {
   ...DefaultTheme,
@@ -40,18 +41,20 @@ function ArticleScreen() {
 
 function CustomDrawerContent(props) {
   return (
+    <SafeAreaView>
     <DrawerContentScrollView {...props}>
       <DrawerItemList {...props} />
-      <DrawerItem
-        
+        <image 
+        source = {require("./assets/react-LogBox.png")}
+        style = {style.sideMenuProfileIcon}></image>
         label="Close Drawer"
         onPress={() => props.navigation.closeDrawer()}
-      />
       <DrawerItem
         label="Toggle Drawer"
         onPress={() => props.navigation.toggleDrawer()}
       />
     </DrawerContentScrollView>
+    </SafeAreaView>
   );
 }
 const Drawer = createDrawerNavigator();
