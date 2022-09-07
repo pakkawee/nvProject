@@ -1,23 +1,39 @@
-import { StyleSheet, Text, View, Button, TextInput } from "react-native";
+import { StyleSheet, Text, View, Button } from "react-native";
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem } from "@react-navigation/drawer";
+import {
+  createDrawerNavigator,
+  DrawerContentScrollView,
+  DrawerItemList,
+  DrawerItem,
+} from "@react-navigation/drawer";
 
-const Stack = createNativeStackNavigator();
 
+import HomeScreen from "./screens/HomeScreen";
+
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: "rgb(255,45,85)",
+  },
+};
 
 function FeedScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text Feed Screen ></Text>
+      <Text>Feed Screen</Text>
+      <Button title="Open Drawer" onPress={() => navigation.openDrawer()} />
+      <Button title="Toggle Drawer" onPress={() => navigation.toggleDrawer()} />
     </View>
   );
 }
-function Article({ navigation }) {
+
+function ArticleScreen() {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text Article Screen ></Text>
+      <Text>Article Screen</Text>
     </View>
   );
 }
@@ -26,38 +42,45 @@ function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
       <DrawerItemList {...props} />
-      <DrawerItem label='Help' onPress={() => alert('Link to help')} />
+      <DrawerItem
+        
+        label="Close Drawer"
+        onPress={() => props.navigation.closeDrawer()}
+      />
+      <DrawerItem
+        label="Toggle Drawer"
+        onPress={() => props.navigation.toggleDrawer()}
+      />
     </DrawerContentScrollView>
   );
 }
-
 const Drawer = createDrawerNavigator();
 
 function MyDrawer() {
   return (
     <Drawer.Navigator
-    useLegacyImplementation
-    drawerContent={()=> <CustomDrawerContent {...props}/>}
-    ScreenOptions = {{
-      drawerStyle:{
-         backgroundColor:'brown',
-         width:240
-    }
-    }}
-   
-
-    
+      useLegacyImplementation
+      drawerContent={(props) => <CustomDrawerContent {...props} />}
+      screenOptions={{
+        drawerStyle: {
+          width: 240,
+        },
+      }}
     >
-      <Drawer.Screen name="Feed" component={FeedScreen} />
-      <Drawer.Screen name="Article" component={Article} />
+
+
+
+      <Drawer.Screen name="HomeScreen" component={HomeScreen} />
+      <Drawer.Screen name="Article" component={ArticleScreen} />
     </Drawer.Navigator>
   );
 }
-
-export default function App() {
+const App = () => {
   return (
-    <NavigationContainer>
-      <MyDrawer/>
+    <NavigationContainer theme={MyTheme}>
+      <MyDrawer />
     </NavigationContainer>
   );
-}
+};
+
+export default App;
